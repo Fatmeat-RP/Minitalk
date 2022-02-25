@@ -1,3 +1,6 @@
+#include <libft.h>
+#include <stdio.h>
+#include <signal.h>
 
 static void	sig_handler(int sig)
 {
@@ -15,7 +18,7 @@ static void	sig_handler(int sig)
 
 int	main(void)
 {
-	ft_printf("PID : %d\n", sighandler());
+	printf("PID : %d\n", getpid());
 	signal (SIGUSR2, sig_handler);
 	signal (SIGUSR1, sig_handler);
 	while (1)

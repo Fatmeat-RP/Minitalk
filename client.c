@@ -1,3 +1,7 @@
+#include <libft.h>
+#include <stdio.h>
+#include <signal.h>
+
 static void	send_signal(int pid, char *string)
 {
 	int	shift;
@@ -7,7 +11,7 @@ static void	send_signal(int pid, char *string)
 	while (string[i++ + 1])
 	{
 		shift = 0;
-		while (shift <= 7)
+		while (shift < 7)
 		{
 			if ((string[i] >> shift) & 1)
 				kill(pid, SIGUSR2);
@@ -19,26 +23,18 @@ static void	send_signal(int pid, char *string)
 	}
 }
 
-static char	get_error(int ac, char **av, int pid, char *string)
+static char	get_error(int ac, char **av, int pid)
 {
 	if (ac != 3)
 	{
-		ft_printf("Error, need two arguments, the pid then the string to send");
+		printf("Error, need two arguments, the pid then the string to send");
 		return (1);
 	}
 	pid = ft_atoi(av[1]);
-	if (pid <= -1)
+	if (!pid)
 	{
-		ft_printf("Error, the pid is invalid. it need to be an int");
+		printf("Error, the pid is invalid. it need to be an int");
 		return (2);
-	}
-	i = 2;
-	while (i++ < ac)
-		string = ft_strjoin(string, av[i])
-	if (string == NULL)
-	{
-		printf("Error, couln't get the string send as seconde arguments")
-		return (3);
 	}
 	return (0);
 }
@@ -48,8 +44,10 @@ int	main(int ac, char **av)
 	int	pid;
 	char	*string;
 
-	if (check_args(int ac, char **av, char *string));
-	pid = atoi(av[1]);
-	send_bit(pid, string);
+	pid = 0;
+	if (get_error(ac, av, pid))
+		return (-1);
+	string = av[2];
+	send_signal(pid, string);
 	return (0);
 }
