@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/28 14:06:53 by acarle-m          #+#    #+#             */
+/*   Updated: 2022/02/28 14:06:53 by acarle-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <libft.h>
 #include <stdio.h>
 #include <signal.h>
 
-static void	send_signal(int pid, char *string)
+static void	send_signal(int pid, char *string, int msglen)
 {
 	int	shift;
 	int	i;
 
 	i = 0;
-	while (string[i])
+	while (i <= msglen)
 	{
-		shift = 0;
-		while (shift)
+		shift = 7;
+		while (shift >= 0)
 		{
 			if ((string[i] >> shift) & 1)
 				kill(pid, SIGUSR1);
@@ -44,15 +56,14 @@ static int	get_error(int ac, char **av)
 
 int	main(int ac, char **av)
 {
-	int		pid;
-	char	*string;
+	int	pid;
+	int	msglen;
 
 	pid = 0;
 	pid = get_error(ac, av);
-	printf("%d", pid);
 	if (pid == -1)
 		return (-1);
-	string = av[2];
-	send_signal(pid, string);
+	msglen = ft_strlen(av[2]);
+	send_signal(pid, av[2], msglen);
 	return (0);
 }

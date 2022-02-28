@@ -1,25 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/28 14:06:46 by acarle-m          #+#    #+#             */
+/*   Updated: 2022/02/28 14:06:46 by acarle-m         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <libft.h>
 #include <stdio.h>
 #include <signal.h>
 
-	static char	c = 0;
-	static int	i = 0;
-
 static void	sig_handler(int sig)
 {
+	static char	c = 0;
+	static int	i = 7;
+
 	if (sig == SIGUSR1)
-//		c += (1 << i++);
-		write(1, "1", 1);
-	else if (sig == SIGUSR2)
-		write(1, "0", 1);
-//		i++;
-	if (i == 7)
+		c += (1 << (i--));
+	if (sig == SIGUSR2)
+		c += (0 << (i--));
+	if (i == -1)
 	{
+		if (c == 0)
+			c = '\n';
 		write(1, &c, 1);
-		i = 0;
 		c = 0;
+		i = 7;
 	}
-	usleep(200);
 }
 
 int	main(void)
@@ -31,4 +42,5 @@ int	main(void)
 	{
 		pause();
 	}
-}	
+}
+	
