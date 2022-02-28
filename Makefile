@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/02/28 17:05:15 by acarle-m          #+#    #+#              #
+#    Updated: 2022/02/28 17:05:15 by acarle-m         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 
 SERVER_SRCS	=	${SRCSDIR}server.c
 
@@ -27,8 +39,10 @@ ${SERVER}	:	${SERVER_SRCS}
 			$(CC) $(FLAGS) ${HFLAGS} ${SERVER_SRCS} -o ${SERVER} fatlibc/build/fatlibc.a
 
 clean		:
+			make clean -C fatlibc
 
 fclean		:	clean
+			make fclean -C fatlibc
 			rm -r ${BUILDDIR}
 
-re			:
+re			:	fclean all
