@@ -6,7 +6,7 @@
 #    By: acarle-m <acarle-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 00:14:21 by acarle-m          #+#    #+#              #
-#    Updated: 2022/02/22 16:19:45 by acarle-m         ###   ########.fr        #
+#    Updated: 2022/03/25 18:53:18 by acarle-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,17 @@ PRINT_OPS_SRCSDIR		=	lib_srcs/printf_ops/
 STRING_OPS_SRCSDIR		=	lib_srcs/string_ops/
 
 
-FILE_OPS_SRCS			=	$(wildcard $(FILE_OPS_SRCSDIR)*.c)
+FILE_OPS_SRCS			=	$(FILE_OPS_SRCSDIR)ft_gnl.c
 
-LIST_OPS_SRCS			=	$(wildcard $(LIST_OPS_SRCSDIR)*.c)
+LIST_OPS_SRCS			=	$(LIST_OPS_SRCSDIR)ft_lstadd_back.c		\
+							$(LIST_OPS_SRCSDIR)ft_lstadd_front.c	\
+							$(LIST_OPS_SRCSDIR)ft_lstclear.c		\
+							$(LIST_OPS_SRCSDIR)ft_lstdelone.c		\
+							$(LIST_OPS_SRCSDIR)ft_lstiter.c			\
+							$(LIST_OPS_SRCSDIR)ft_lstlast.c			\
+							$(LIST_OPS_SRCSDIR)ft_lstmap.c			\
+							$(LIST_OPS_SRCSDIR)ft_lstnew.c			\
+							$(LIST_OPS_SRCSDIR)ft_lstsize.c
 
 LOGIC_OPS_SRCS			=	$(wildcard $(LOGIC_OPS_SRCSDIR)*.c)	
 

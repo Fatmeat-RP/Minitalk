@@ -29,12 +29,12 @@ HFLAGS	=	-Ifatlibc/include
 
 all			: ${CLIENT} ${SERVER}
 
-${CLIENT}	:	${CLIENT_SRCS}
+${CLIENT}	:	${CLIENT_SRCS} ./fatlibc/build/fatlibc.a
 			mkdir -p ${BUILDDIR}
 			make -C fatlibc/
 			$(CC) $(FLAGS) ${HFLAGS} ${CLIENT_SRCS} -o ${CLIENT} fatlibc/build/fatlibc.a
 
-${SERVER}	:	${SERVER_SRCS}
+${SERVER}	:	${SERVER_SRCS} ./fatlibc/build/fatlibc.a
 			make -C fatlibc/
 			$(CC) $(FLAGS) ${HFLAGS} ${SERVER_SRCS} -o ${SERVER} fatlibc/build/fatlibc.a
 

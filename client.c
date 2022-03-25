@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <stdio.h>
 #include <signal.h>
 
 static void	send_signal(int pid, char *string, int msglen)
@@ -42,13 +41,15 @@ static int	get_error(int ac, char **av)
 
 	if (ac != 3)
 	{
-		printf("Error, need two arguments, the pid then the string to send");
+		write(1, "Error, need two arguments, "
+			"the pid then the string to send\n", 59);
 		return (-1);
 	}
-	pid = atoi(av[1]);
+	pid = ft_atoi(av[1]);
 	if (pid < 1)
 	{
-		printf("Error, the pid is invalid. it need to be an int");
+		write(1, "Error, the pid is invalid. "
+			"it need to be an int\n", 48);
 		return (-1);
 	}
 	return (pid);
