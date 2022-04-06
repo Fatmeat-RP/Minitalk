@@ -29,7 +29,7 @@ static void	send_signal(int pid, char *string, int msglen)
 			else
 				kill(pid, SIGUSR2);
 			shift--;
-			usleep(200);
+			usleep(700);
 		}
 		i++;
 	}
