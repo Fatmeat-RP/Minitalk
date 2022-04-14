@@ -27,22 +27,28 @@ FLAGS		=	-Wall -Werror -Wextra
 
 HFLAGS	=	-Ifatlibc/include
 
-all			: ${CLIENT} ${SERVER}
+LIBS = fatlibc/build/fatlibc.a
 
-${CLIENT}	:	${CLIENT_SRCS}
-			mkdir -p ${BUILDDIR}
-			make -C fatlibc/
-			$(CC) $(FLAGS) ${HFLAGS} ${CLIENT_SRCS} -o ${CLIENT} fatlibc/build/fatlibc.a
+all			: $(LIBS) directory ${CLIENT} ${SERVER}
 
-${SERVER}	:	${SERVER_SRCS}
-			make -C fatlibc/
-			$(CC) $(FLAGS) ${HFLAGS} ${SERVER_SRCS} -o ${SERVER} fatlibc/build/fatlibc.a
+${CLIENT}	:	${CLIENT_SRCS} ${LIBS}
+			
+			@$(CC) $(FLAGS) ${HFLAGS} ${CLIENT_SRCS} -o ${CLIENT} ${LIBS}
+
+${SERVER}	:	${SERVER_SRCS} ${LIBS}
+			@$(CC) $(FLAGS) ${HFLAGS} ${SERVER_SRCS} -o ${SERVER} ${LIBS}
+
+${LIBS}		:
+			@make -C fatlibc/
+
+directory	:
+			@mkdir -p ${BUILDDIR}
 
 clean		:
-			make clean -C fatlibc
+			@make clean -C fatlibc
 
 fclean		:	clean
-			make fclean -C fatlibc
-			rm -r ${BUILDDIR}
+			@make fclean -C fatlibc
+			@rm -rf ${BUILDDIR}
 
 re			:	fclean all
